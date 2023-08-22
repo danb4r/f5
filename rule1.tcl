@@ -16,7 +16,7 @@
 # F5 BIG-IP Script Deployment: https://techdocs.f5.com/kb/en-us/products/big-iq-centralized-mgmt/manuals/product/bigiq-central-mgmt-device-5-4-0/4.html
 #
 #
-proc signdata { token } {
+proc signData { token } {
   # Atenção: hardcoded secret key
   return [b64encode [CRYPTO::sign -alg hmac-sha1 -key "oNYV7EIiQ8qIALI/mk73Sg" $token]]
 }
