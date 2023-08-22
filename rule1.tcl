@@ -30,7 +30,7 @@ when HTTP_RESPONSE priority 1 {
     # Assina token de saída (se existente) para ser verificado na entrada (retorno do JWT)
 
     # Calcula a assinatura
-    set signature [signdata $authorization]
+    set signature [call signdata $authorization]
 
     # Escreve no header "Msign"
     HTTP::header replace "Msign" $signature
@@ -60,7 +60,7 @@ when HTTP_REQUEST priority 1 {
       }
 
       # Calcula a assinatura
-      set signature [signdata $authorization]
+      set signature [call signdata $authorization]
 
       if {
         ($msign ne $signature)
