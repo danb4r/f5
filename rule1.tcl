@@ -17,23 +17,18 @@
 #
 #
 when HTTP_RESPONSE priority 1 {
-  # Em testes, limitar atuação apenas ao corporativo e ao SGSI
-  if { 
-    ([HTTP::path] starts_with "/corporativo_api" || [HTTP::path] starts_with "/sgsi")
+  # Recupera o headers "Authorization"
+  set authorization [HTTP::header "Authorization"]
+  if {      
+    ($authorization ne "")
   } then {
-    # Recupera o headers "Authorization"
-    set authorization [HTTP::header "Authorization"]
-    if {      
-      ($authorization ne "")
-    } then {
-      # Assina token de saída (se existente) para ser verificado na entrada (retorno do JWT)
+    # Assina token de saída (se existente) para ser verificado na entrada (retorno do JWT)
 
-      # Calcula a assinatura
-      set signature signData authorization
+    # Calcula a assinatura
+    set signature signData authorization
 
-      # Escreve no header "Msign"
-      HTTP::header replace "Msign" $signature
-    }
+    # Escreve no header "Msign"
+    HTTP::header replace "Msign" $signature
   }
 }
 
