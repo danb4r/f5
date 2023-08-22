@@ -55,7 +55,7 @@ when HTTP_REQUEST priority 1 {
       }
 
       # Calcula a assinatura
-      set signature signData authorization
+      set signature [signData authorization]
 
       if {
         ($msign ne $signature)
@@ -70,5 +70,5 @@ when HTTP_REQUEST priority 1 {
 
 proc signData { token } {
   # Atenção: hardcoded secret key
-  return signed_data [b64encode [CRYPTO::sign -alg hmac-sha1 -key "oNYV7EIiQ8qIALI/mk73Sg" $token]]
+  return [b64encode [CRYPTO::sign -alg hmac-sha1 -key "oNYV7EIiQ8qIALI/mk73Sg" $token]]
 }
