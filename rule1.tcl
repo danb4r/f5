@@ -75,5 +75,5 @@ when HTTP_REQUEST priority 1 {
 
 proc signData { token } {
   # Atenção: hardcoded secret key
-  return signed_data [b64encode [CRYPTO::sign -alg hmac-sha1 -key "oNYV7EIiQ8qIALI/mk73Sg" $data]]
+  return signed_data [b64encode [CRYPTO::sign -alg hmac-sha1 -key "oNYV7EIiQ8qIALI/mk73Sg" $token]]
 }
