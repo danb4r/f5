@@ -16,6 +16,11 @@
 # F5 BIG-IP Script Deployment: https://techdocs.f5.com/kb/en-us/products/big-iq-centralized-mgmt/manuals/product/bigiq-central-mgmt-device-5-4-0/4.html
 #
 #
+proc signdata { token } {
+  # Atenção: hardcoded secret key
+  return [b64encode [CRYPTO::sign -alg hmac-sha1 -key "oNYV7EIiQ8qIALI/mk73Sg" $token]]
+}
+
 when HTTP_RESPONSE priority 1 {
   # Recupera o headers "Authorization"
   set authorization [HTTP::header "Authorization"]
@@ -66,9 +71,4 @@ when HTTP_REQUEST priority 1 {
       }
     }
   }
-}
-
-proc signdata { token } {
-  # Atenção: hardcoded secret key
-  return [b64encode [CRYPTO::sign -alg hmac-sha1 -key "oNYV7EIiQ8qIALI/mk73Sg" $token]]
 }
